@@ -8,15 +8,16 @@ order: 5
 	<h2>FAQ</h2>
 	<ul>
 		<li><a href="#links_to_tools">Useful Links to all Tools</a></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
+		<li><a href="#whats_ontology">What is an ontology?</a></li>
+		<li><a href="#why_annotate_my_data">Why should I annotate my data with ontology?</a></li>
+		<li><a href="#how_to_annotate">How do I annotate my data with ontologies?</a></li>
+		<li><a href="#using_the_annotations">I have annotated my data with ontologies. Now what?</a></li>
 		<li></li>
 		<li></li>
 	</ul>
 	
 	<div class="links_to_tools">
+		<p> Useful Links to all Tools</p>
 		<ul>
 			<li>Ontology Lookup Service
 				<ul>
@@ -25,6 +26,62 @@ order: 5
 				</ul>
 			</li>
 		</ul>
+	</div>
+	<div class="whats_ontology">
+		<p> What is an ontology?</p>
+		<p>If you are new to ontologies, there is a 
+		<a href="http://ontogenesis.knowledgeblog.org/66" target="_blank">short introduction</a> on the subject available and a blog post 
+		by James Malone on <a href="http://drjamesmalone.blogspot.co.uk/2012/06/common-ontology-questions-1-what-is-it.html" target="_blank">what ontologies are for</a>.
+		</p>
+	</div>
+	<div class="why_annotate_my_data">
+		<p> Why should I annotate my data with ontology?</p>
+		<p>
+		The main reason to do this is to give semantics to your data. This goes a long way as it will make your data easier 
+		to visualize, easier to query in a meaningful way, and easier to integrate with other data. 
+		</p>
+		<p>
+			Let’s say you have a datasource that consists of strings of names. Now let’s also say that there exists a ‘family’ ontology 
+			that strictly describes a family tree and the relationships that exist in that tree. If you annotate your data with that 
+			ontology, you can start to realise the connections between the different people. You can draw a family tree, you can add in a 
+			datasource with different names (let’s say a distant relatives family tree). 
+			You can also ask who is related to whom with what degree or see if the birth rate has decreased in the newer generations.
+		</p>
+	</div>
+	<div class="how_to_annotate">
+		<p> How do I annotate my data with ontologies?</p>
+		<p>
+			You can start by investigating existing data-ontology term mappings using <a href="http://www.ebi.ac.uk/spot/zooma" target="_blank">Zooma</a> 
+			a tool for mapping text annotations to ontology term. Zooma holds a repository of existing annotation knowledge, 
+			and uses the repository to search and provide high confidence mappings of data in the form of text, 
+			to ontology term. If Zooma can’t find a mapping it will take a look in the Ontology Lookup Service to try and find one.
+		</p>
+		<p>
+			Like, Zooma, you too can look into the <a href="http://www.ebi.ac.uk/old" target="_blank">Ontology Lookup Service</a> (OLS) 
+			as the next step of your data annotation process. OLS is a repository for biomedical ontologies that aims to provide a 
+			single point of access to the latest ontology versions. You simply need to type in what you are looking for in the search 
+			box and OLS will guide you from there. 
+		</p>
+		<p>
+			You may find that many ontologies overlap and that you may want to annotate your data  against a defined set of ontologies 
+			and not all the available ones. Thankfully there is a ontology cross references tool. 
+			The <a href="http://www.ebi.ac.uk/spot/oxo" target="_blank">Ontology Xref Service</a> (OxO) analyses and displays the 
+			connection between ontologies over multiple ‘hops’.
+		</p>
+		<p>
+			After spending some time with these tools and digging into the depths of the bio-ontology world, you might find that no 
+			suitable term for your data exists in an ontology, and that you have to create one - <a href="www.ebi.ac.uk/efo/webulous" target="_blank">Webulous</a> 
+			is a tool to support ontology development from spreadsheets through a google sheet add-on.
+		</p>
+		<p>
+			The above complete tools set can help you with your data-ontology annotation workflow. They are used across different teams in the EMBL-EBI 
+			and other institutions in processes undertaken by high-volume data repositories. The above steps are just a guideline, and you 
+			can use the tools independently for different tasks or combine them together and build your applications around them. Zooma, 
+			OLS and OxO provide an API that you can code against, enabling the programmatic access and automation of the above processes. 
+		</p>
+	</div>
+	<div class="using_the_annotations">
+		<p> I have annotated my data with ontologies. Now what?</p>
 	</div>
 
 </div><!-- /.blurb -->
