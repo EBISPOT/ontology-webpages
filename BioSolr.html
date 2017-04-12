@@ -89,7 +89,7 @@ order: 2
 	<p><b>Adding an Ontology Lookup Processor Chain</b></p>
 	<p>We need to add our plugin - an OntologyUpdateProcessor - to our default processor chain in Solr, so that Solr will perform the ontology lookup from our configured field.</p>
 	<p>You'll need to edit <i>solr-conf/documents/conf/solrconfig.xml</i>. Scroll down to line 619 and uncomment this block:</p>
-	<blockquote>
+	<pre><blockquote>
 		<!-- Ontology lookup processor chain -->
 
 		  <updateRequestProcessorChain name="ontology">
@@ -104,5 +104,5 @@ order: 2
 		    <processor class="solr.DistributedUpdateProcessorFactory" />
 		    <processor class="solr.RunUpdateProcessorFactory" />
 		  </updateRequestProcessorChain>
-	</blockquote>
+	</blockquote></pre>
 </div><!-- /.blurb -->
