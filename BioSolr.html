@@ -90,19 +90,19 @@ order: 2
 	<p>We need to add our plugin - an OntologyUpdateProcessor - to our default processor chain in Solr, so that Solr will perform the ontology lookup from our configured field.</p>
 	<p>You'll need to edit <i>solr-conf/documents/conf/solrconfig.xml</i>. Scroll down to line 619 and uncomment this block:</p>
 	<pre><blockquote>
-		<!-- Ontology lookup processor chain -->
+		&lt;!-- Ontology lookup processor chain --&gt;
 
-		  <updateRequestProcessorChain name="ontology">
-		    <processor class="uk.co.flax.biosolr.solr.update.processor.OntologyUpdateProcessorFactory">
-		      <bool name="enabled">true</bool>
-		      <str name="annotationField">efo_uri</str>
+		  &lt;updateRequestProcessorChain name="ontology"&gt;
+		    &lt;processor class="uk.co.flax.biosolr.solr.update.processor.OntologyUpdateProcessorFactory"&gt;
+		      &lt;bool name="enabled"&gt;true&lt;/bool&gt;
+		      &lt;str name="annotationField"&gt;efo_uri&lt;/str&gt;
 
-		      <str name="olsBaseURL">http://www.ebi.ac.uk/ols/beta/api</str>
-		      <str name="olsOntology">efo</str>
-		    </processor>
-		    <processor class="solr.LogUpdateProcessorFactory" />
-		    <processor class="solr.DistributedUpdateProcessorFactory" />
-		    <processor class="solr.RunUpdateProcessorFactory" />
-		  </updateRequestProcessorChain>
+		      &lt;str name="olsBaseURL"&gt;http://www.ebi.ac.uk/ols/beta/api&lt;/str&gt;
+		      &lt;str name="olsOntology"&gt;efo&lt;/str&gt;
+		    &lt;/processor&gt;
+		    &lt;processor class="solr.LogUpdateProcessorFactory" /&gt;
+		    &lt;processor class="solr.DistributedUpdateProcessorFactory" /&gt;
+		    &lt;processor class="solr.RunUpdateProcessorFactory" /&gt;
+		  &lt;/updateRequestProcessorChain&gt;
 	</blockquote></pre>
 </div><!-- /.blurb -->
