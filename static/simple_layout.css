@@ -1,0 +1,4 @@
+/*Added part to hide fragments of pictures that represent hyperlinks */
+.hideLink{
+border-bottom-width: 0px !important;;
+}
