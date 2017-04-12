@@ -29,13 +29,13 @@ order: 2
 	<code>>: bin/solr stop</code>
 	<p>...and now get the extra BioSolr stuff. We'll be using this later in the tutorial</p>
 	<p>Check out the code for this demo into your preferred directory - we're going to be using ~/Projects/:</p>
-	<quote>>: cd ~/Projects</quote><br/>
-	<quote>>: git clone git@github.com:flaxsearch/BioSolr.git</quote><br/>
-	<quote>>: cd BioSolr/swat4ls_demo</quote>
+	<blockquote>>: cd ~/Projects<br/>
+	>: git clone git@github.com:flaxsearch/BioSolr.git<br/>
+	>: cd BioSolr/swat4ls_demo</blockquote>
 	<p>We've supplied the required configuration to get us up and running quickly, so let's start a new Solr instance that uses this config:</p>
-	<quote>>: cd ~/Projects/BioSolr/swat4ls_demo</quote><br/>
-	<quote>>: export SOLR_DIR=~/Applications/solr-5.3.1</quote><br/>
-	<quote>>: solr-start.sh</quote>
+	<blockquote>>: cd ~/Projects/BioSolr/swat4ls_demo</blockquote><br/>
+	<blockquote>>: export SOLR_DIR=~/Applications/solr-5.3.1</blockquote><br/>
+	<blockquote>>: solr-start.sh</blockquote>
 	<p>Now reload your page at <a href="http://localhost:8983/" target="_blank">http://localhost:8983/</a> - this time, you should see a new documents core. If so, great! Now we're ready to start indexing some data.</p>
 	<h5 id="index_sample_data">Index some example data with embedded ontology annotations</h5>
 	<p>We've supplied some sample data to demonstrate how BioSolr can index information annotated with ontology terms. 
@@ -88,4 +88,21 @@ order: 2
 	<p>Now we need to modify our Solr configuration to make use of this plugin.</p>
 	<p><b>Adding an Ontology Lookup Processor Chain</b></p>
 	<p>We need to add our plugin - an OntologyUpdateProcessor - to our default processor chain in Solr, so that Solr will perform the ontology lookup from our configured field.</p>
+	<p>You'll need to edit <i>solr-conf/documents/conf/solrconfig.xml</i>. Scroll down to line 619 and uncomment this block:</p>
+	<quote>
+		<!-- Ontology lookup processor chain -->
+
+		  <updateRequestProcessorChain name="ontology">
+		    <processor class="uk.co.flax.biosolr.solr.update.processor.OntologyUpdateProcessorFactory">
+		      <bool name="enabled">true</bool>
+		      <str name="annotationField">efo_uri</str>
+
+		      <str name="olsBaseURL">http://www.ebi.ac.uk/ols/beta/api</str>
+		      <str name="olsOntology">efo</str>
+		    </processor>
+		    <processor class="solr.LogUpdateProcessorFactory" />
+		    <processor class="solr.DistributedUpdateProcessorFactory" />
+		    <processor class="solr.RunUpdateProcessorFactory" />
+		  </updateRequestProcessorChain>
+	</quote>
 </div><!-- /.blurb -->
