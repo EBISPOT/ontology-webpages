@@ -5,7 +5,7 @@ group: "in_local_navigation"
 order: 2
 ---
 <div class="blurb">
-	<h4>A BioSolr Ontology Expansion plugin for Solr</h4>
+	<h3>A BioSolr Ontology Expansion plugin for Solr</h3>
 	<p>This is a short interactive introduction to the BioSolr Ontology Expansion plugin for Solr.</p>
 	<p>In this tutorial you will learn how to:</p>
 	<ul>
@@ -17,10 +17,10 @@ order: 2
 		<li><a href="#reindex_data"></a>Reindex our data to take advantage of ontology enrichment</li>
 		<li><a href="#ontology_powered_search">Perform ontology-powered searches</a></li>
 	</ul>
-	<h5>Prerequisites</h5>
+	<h4>Prerequisites</h4>
 	<p>Java 8 - both Solr and the example web application rely on Java 8 to run.</p>
 	
-	<h5 id="install_solr">Install Solr</h5>
+	<h4 id="install_solr">Install Solr</h4>
 	<p>Download Solr from <a href="http://lucene.apache.org/solr/" target="_blank">http://lucene.apache.org/solr/</a> (Pick .tgz or .zip file as you prefer)</p>
 	<p>Unpack the Solr download into your preferred directory - for this demo, we're going to use ~/Applications/solr-5.3.1/</p>
 	<p>Once you've done this, verify you can startup Solr:</p>
@@ -40,7 +40,7 @@ order: 2
 	solr-start.sh</blockquote>
 	<p>Now reload your page at <a href="http://localhost:8983/" target="_blank">http://localhost:8983/</a> - this time, you should see a new documents core. If so, great! Now we're ready to start indexing some data.</p>
 	
-	<h5 id="index_sample_data">Index some example data with embedded ontology annotations</h5>
+	<h4 id="index_sample_data">Index some example data with embedded ontology annotations</h4>
 	<p>We've supplied some sample data to demonstrate how BioSolr can index information annotated with ontology terms. 
 		This data is stored in the file <i>data/gwas-catalog-annotation-data.csv</i> - you can open this file in Excel and take a 
 		look at it if you like. You'll see this file contains a column <i>efo_uri</i> which contains annotations to the Experimental 
@@ -60,7 +60,7 @@ order: 2
 		and running a standard query - you can see that the documents in our index correspond to rows in our spreadsheet.
 	</p>
 	
-	<h5 id="search_data">Use an example web application to search this data</h5>
+	<h4 id="search_data">Use an example web application to search this data</h4>
 	<p>Next, we've supplied you with a simple web application to search our new Solr index. Let's try running this.</p>
 	<blockquote>cd ~/Projects/BioSolr/swat4ls_demo/tools<br/>
 	java -jar swat4ls-webapp-1.0-SNAPSHOT.jar server webapp.yml</blockquote>
@@ -80,7 +80,7 @@ order: 2
 	</p>
 	<p>BioSolr's ontology expansion plugin will help us improve these search results a lot. So let's kill our search web application and move on to installing BioSolr.</p>
 	
-	<h5 id="install_biosolr_plugins">Install BioSolr plugins to ontology-enrich your Solr index</h5>
+	<h4 id="install_biosolr_plugins">Install BioSolr plugins to ontology-enrich your Solr index</h4>
 	<p>Now we're going to try and improve our search results using the structure of the ontology. To do this, we need to add the BioSolr ontology expansion plugin.</p>
 	<p>Before we start, let's shutdown our running Solr server</p>
 	<blockquote>cd ~/Projects/BioSolr/swat4ls_demo/<br/>
@@ -90,7 +90,7 @@ order: 2
 	cp plugins/solr-ontology-update-processor-0.2.jar solr-conf/documents/lib/</blockquote>
 	<p>We've installed our plugin, but we need to do a bit of reconfiguration to make Solr use it.</p>
 	
-	<h5 id="configure_biosolr">Configure BioSolr</h5>
+	<h4 id="configure_biosolr">Configure BioSolr</h4>
 	<p>Now we need to modify our Solr configuration to make use of this plugin.</p>
 	<p><b>Adding an Ontology Lookup Processor Chain</b></p>
 	<p>We need to add our plugin - an OntologyUpdateProcessor - to our default processor chain in Solr, so that Solr will perform the ontology lookup from our configured field.</p>
@@ -134,9 +134,9 @@ order: 2
 	solr-start.sh
 	</blockquote>
 	
-	<h5 id="reindex_data">Reindex our data to take advantage of ontology enrichment</h5>
+	<h4 id="reindex_data">Reindex our data to take advantage of ontology enrichment</h4>
 	<p>This bit is simple - we can just rerun our indexing process from earlier...</p>
-	<blockquote>curl http://localhost:8983/solr/documents/update --data-binary @data/gwas-catalog-annotation-data.csv -H 'Content-type:application/csv'
+	<blockquote>curl http://localhost:8983/solr/documents/update --data-binary @data/gwas-catalog-annotation-data.csv -H 'Content-type:application/csv'<br/>
 	curl http://localhost:8983/solr/documents/update --data '<commit/>' -H 'Content-type:text/xml; charset=utf-8'
 	</blockquote>
 	<p>You'll notice this takes a while longer than it did earlier - this is because this time, as we index our data we're calling out to OLS to expand our data using the ontology. Hopefully network access is up to it!</p>
@@ -145,7 +145,7 @@ order: 2
 		earlier, including some new fields that weren't in our spreadsheet.
 	</p>
 	
-	<h5 id="ontology_powered_search">Perform ontology-powered searches</h5>
+	<h4 id="ontology_powered_search">Perform ontology-powered searches</h4>
 	<p>Now let's go back to our web application and see if we can take advantage of all this extra information.</p>
 	<p>Restart the application again:</p>
 	<blockquote>cd ~/Projects/BioSolr/swat4ls_demo/tools
@@ -154,7 +154,7 @@ order: 2
 	<p>You'll straight away notice something new - lots of additional checkboxes (you might need to reload your page). These are present because our webapp has noticed that we have additional ontology fields in our data.</p>
 	<p>Now let's go back to our earlier searches. If you remember, we tried looking for <i>lung cancer</i> and we got 31 results. We should be able to do the same search again, and get the same results.</p>
 	<p>Then, we tried <i>lung disease</i> and only got 3 results. Again, we should be able to verify this. But now let's check the box to use ontology expansion:</p>
-	<input type="checkbox" onclick="return false;">Include parent labels <br/>
+	<input type="checkbox" onclick="return false;" checked="true">Include parent labels <br/>
 	<p>Now if we rerun the search, we should see 53 results, across a whole variety of lung disease. Our top hit, for example, should look like this:</p>
 	<ol><li>Variants in FAM13A are associated with chronic obstructive pulmonary disease.<br/>
 	Cho MH - Nat Genet.<br/>
@@ -164,7 +164,7 @@ order: 2
 	Parent(s) lung disease.<br/>
 	Has disease location trachea lung.</li></ol>
 	<p>This looks much more like it! But we can even go one better than this - let's try searching for <i>lung</i> again. Uncheck all the boxes so we get 49 results. This time, though, let's also include diseases which are located in the lung...</p>
-	<input type="checkbox" onclick="return false;">Has disease location <br/>
+	<input type="checkbox" onclick="return false;" checked="true">Has disease location <br/>
 	<p>Now you should see that we have 75 results; we're using relationships in the ontology to improve our results. For example, one of our results looks like this:</p>
 	<ol><li>Genome-wide association study identifies BICD1 as a susceptibility gene for emphysema.<br/>
 	Kong X - Am J Respir Crit Care Med.<br/>
@@ -193,7 +193,7 @@ order: 2
 	</li></ol>
 	<p>This shows the power of including additional information from the ontology in your Solr index. You'll also see the search is just as fast as it was previously: by including extra data when we built our index, we have almost no penalty in search time - which is usually the best option for users.</p>
 	
-	<h5 id="conclusions">Conclusions</h5>
+	<h4 id="conclusions">Conclusions</h4>
 	<p>This is the end of the BioSolr ontology expansion tutorial. You've seen how to install Solr, load some example data, extend Solr with the ontology expansion plugin developed by BioSolr into a Solr installation, and you've seen some of the extra features this plugin can give you.</p>
 	<p><i>BioSolr is funded by the BBSRC Flexible Interchange Programme (FLIP) grant number BB/M013146/1</i></p>
 </div><!-- /.blurb -->
