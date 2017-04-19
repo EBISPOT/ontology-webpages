@@ -23,10 +23,6 @@ order: 2
 	</ul>
 	<h4>Prerequisites</h4>
 	<p>Java 8 - both Solr and the example web application rely on Java 8 to run.</p>
-	<p>Checkout the code from GitHub and move to the swat4ls_demo directory:</p>
-	<blockquote>git clone https://github.com/EBISPOT/BioSolr<br/>
-	cd BioSolr/swat4ls_demo/
-	</blockquote>
 	
 	<h4 id="install_solr">Install Solr</h4>
 	<p>Download Solr from <a href="http://lucene.apache.org/solr/" target="_blank">http://lucene.apache.org/solr/</a> (Pick .tgz or .zip file as you prefer)</p>
@@ -40,10 +36,9 @@ order: 2
 	<p>...and now get the extra BioSolr stuff. We'll be using this later in the tutorial</p>
 	<p>Check out the code for this demo into your preferred directory - we're going to be using ~/Projects/:</p>
 	<blockquote>cd ~/Projects<br/>
-	git clone git@github.com:flaxsearch/BioSolr.git<br/>
-	cd BioSolr/swat4ls_demo</blockquote>
+	git clone git@github.com:EBISPOT/BioSolr.git</blockquote>
 	<p>We've supplied the required configuration to get us up and running quickly, so let's start a new Solr instance that uses this config:</p>
-	<blockquote>cd ~/Projects/BioSolr/swat4ls_demo<br/>
+	<blockquote>cd ~/Projects/BioSolr/<br/>
 	export SOLR_DIR=~/Applications/solr-5.3.1<br/>
 	solr-start.sh</blockquote>
 	<p>Now reload your page at <a href="http://localhost:8983/" target="_blank">http://localhost:8983/</a> - this time, you should see a new documents core. If so, great! Now we're ready to start indexing some data.</p>
