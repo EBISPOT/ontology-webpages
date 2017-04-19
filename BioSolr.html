@@ -114,13 +114,13 @@ order: 2
 		    &lt;processor class="solr.RunUpdateProcessorFactory" /&gt;
 		  &lt;/updateRequestProcessorChain&gt;
 	</pre>
-	<p>Let's take a look at this in a bit of details. We're setting up a processor chain called 'ontology' that uses the class 
+	<p>Let's take a look at this in a bit of detail. We're setting up a processor chain called 'ontology' that uses the class 
 		<i>OntologyUpdateProcessorFactory</i> that has been developed as part of BioSolr. We've told it to look for annotation in the 
 		'efo_uri' field, and told it where the Ontology Lookup Service (OLS) is located. We've also told it to use the ontology 
 		'efo' from OLS.
 	</p>
 	<p>Now, we need to add this update request processor chain to our update request handler, so it is used whenever we update data.</p>
-	<p>Still editing <i>solr-conf/documents/conf/solrconfig.xml</i>, scrool back up to line 431 and uncomment this block:</p>
+	<p>Still editing <i>solr-conf/documents/conf/solrconfig.xml</i>, scroll back up to line 431 and uncomment this block:</p>
 	<pre>
 		&lt;requestHandler name="/update" class="solr.UpdateRequestHandler"&gt;
 	   	  &lt;!--  See below for information on defining
@@ -133,14 +133,14 @@ order: 2
 	  	&lt;/requestHandler&gt;
 	</pre>
 	<p>Now we've reconfigured our server, we just have to restart...</p>
-	<blockquote>cd ~/Projects/BioSolr/swat4ls_demo<br/>
+	<blockquote>cd ~/Projects/BioSolr/<br/>
 	solr-start.sh
 	</blockquote>
 	
 	<h4 id="reindex_data">Reindex our data to take advantage of ontology enrichment</h4>
 	<p>This bit is simple - we can just rerun our indexing process from earlier...</p>
 	<blockquote>curl http://localhost:8983/solr/documents/update --data-binary @data/gwas-catalog-annotation-data.csv -H 'Content-type:application/csv'<br/>
-	curl http://localhost:8983/solr/documents/update --data '<commit/>' -H 'Content-type:text/xml; charset=utf-8'
+	curl http://localhost:8983/solr/documents/update --data '&lt;commit/&gt;' -H 'Content-type:text/xml; charset=utf-8'
 	</blockquote>
 	<p>You'll notice this takes a while longer than it did earlier - this is because this time, as we index our data we're calling out to OLS to expand our data using the ontology. Hopefully network access is up to it!</p>
 	<p>If you open the Solr admin interface again <a href="http://localhost:8983/solr/#/documents" target="_blank">http://localhost:8983/solr/#/documents</a>, we should still have 26,385 documents. 
@@ -151,8 +151,8 @@ order: 2
 	<h4 id="ontology_powered_search">Perform ontology-powered searches</h4>
 	<p>Now let's go back to our web application and see if we can take advantage of all this extra information.</p>
 	<p>Restart the application again:</p>
-	<blockquote>cd ~/Projects/BioSolr/swat4ls_demo/tools
-	java -jar swat4ls-webapp-1.0-SNAPSHOT.jar server webapp.yml
+	<blockquote>cd ~/Projects/BioSolr/tools<br/>
+	java -jar webapp-1.0-SNAPSHOT.jar server webapp.yml
 	</blockquote>
 	<p>You'll straight away notice something new - lots of additional checkboxes (you might need to reload your page). These are present because our webapp has noticed that we have additional ontology fields in our data.</p>
 	<p>Now let's go back to our earlier searches. If you remember, we tried looking for <i>lung cancer</i> and we got 31 results. We should be able to do the same search again, and get the same results.</p>
