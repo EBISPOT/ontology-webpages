@@ -2,8 +2,8 @@
 name: Ontology Tools
 group: SPOT Team
 email: noreply@ebi.ac.uk
-domain: 
-baseurl: 
+domain: /
+baseurl: /
 permalink: pretty
 
 # Add custom CSS / JS here
