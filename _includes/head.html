@@ -43,7 +43,7 @@
   -->
   {% comment %} Custom global CSS could go here: {% endcomment %}
   {% for css in site.custom_css %}
-  <link rel="stylesheet" href="{site.baseurl}/{{css}}">
+  <link rel="stylesheet" href="{{site.baseurl}}{{css}}">
   {% endfor %}
 
   <!-- If you have a custom header image or colour -->
