@@ -43,14 +43,14 @@
   -->
   {% comment %} Custom global CSS could go here: {% endcomment %}
   {% for css in site.custom_css %}
-  <link rel="stylesheet" href="{{site.baseurl}}{{css}}">
+  <link rel="stylesheet" href="{{site.baseurl}}/{{css}}">
   {% endfor %}
 
   <!-- If you have a custom header image or colour -->
   <!--
   -->
   <meta name="ebi:localmasthead-color" content="#091314">
-  <meta name="ebi:localmasthead-image" content="{{ site.domain }}{{ site.baseurl }}/static/background.jpg">
+  <meta name="ebi:localmasthead-image" content="{{ site.baseurl }}/static/background.jpg">
 
     <!-- you can replace this with theme-[projectname].css. See http://www.ebi.ac.uk/web/style/colour for details of how to do this -->
   <!-- also inform ES so we can host your colour palette file -->
