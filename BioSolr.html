@@ -90,8 +90,11 @@ order: 2
 	solr_stop.sh</blockquote>
 	<p>Now, take the BioSolr plugin jar file out of the <i>plugins/</i> directory and copy it into our Solr setup.</p>
 	<blockquote>mkdir solr-conf/documents/lib<br/>
-	cp plugins/solr-ontology-update-processor-0.2.jar solr-conf/documents/lib/</blockquote>
-	<p>We've installed our plugin, but we need to do a bit of reconfiguration to make Solr use it.</p>
+	cp plugins/solr-ontology-update-processor-0.5.jar solr-conf/documents/lib/</blockquote>
+	<p>
+		The code for this plugin is under the `ontology/ontology-annotator` directory. <br/>
+		We've installed our plugin, but we need to do a bit of reconfiguration to make Solr use it.
+	</p>
 	
 	<h4 id="configure_biosolr">Configure BioSolr</h4>
 	<p>Now we need to modify our Solr configuration to make use of this plugin.</p>
