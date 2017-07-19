@@ -2,14 +2,17 @@
 layout: default
 title: BioSolr
 group: "in_local_navigation"
-order: 2
+order: 3
 ---
 <div class="blurb">
 	<h3>A BioSolr Ontology Expansion plugin for Solr</h3>
 	<p>BioSolr aims to significantly advance the state of the art with regard to 
 		indexing and querying biomedical data with freely available open source software
 	</p>
-	<p>This is a short interactive introduction to the BioSolr Ontology Expansion plugin for Solr.</p>
+	<p>This is a short interactive introduction to the BioSolr Ontology Expansion plugin for Solr.
+		If you are interested in using elasticsearch instead, please refer to the BioSolr elasticsearch tutorial 
+		<a href="https://github.com/EBISPOT/BioSolr/tree/master/tutorial/elasticsearch" target="_blank">here</a>
+	</p>
 	<p>In this tutorial you will learn how to:</p>
 	<ul>
 		<li><a href="#install_solr">Install Solr</a></li>
@@ -38,14 +41,14 @@ order: 2
 	<blockquote>cd ~/Projects<br/>
 	git clone https://github.com/EBISPOT/BioSolr.git</blockquote>
 	<p>We've supplied the required configuration to get us up and running quickly, so let's start a new Solr instance that uses this config:</p>
-	<blockquote>cd ~/Projects/BioSolr/<br/>
+	<blockquote>cd ~/Projects/BioSolr/tutorial/solr<br/>
 	export SOLR_DIR=~/Applications/solr-5.3.1<br/>
 	solr-start.sh</blockquote>
 	<p>Now reload your page at <a href="http://localhost:8983/" target="_blank">http://localhost:8983/</a> - this time, you should see a new documents core. If so, great! Now we're ready to start indexing some data.</p>
 	
 	<h4 id="index_sample_data">Index some example data with embedded ontology annotations</h4>
 	<p>We've supplied some sample data to demonstrate how BioSolr can index information annotated with ontology terms. 
-		This data is stored in the file <i>data/gwas-catalog-annotation-data.csv</i> - you can open this file in Excel and take a 
+		This data is stored in the file <i>tutorial/data/gwas-catalog-annotation-data.csv</i> - you can open this file in Excel and take a 
 		look at it if you like. You'll see this file contains a column <i>efo_uri</i> which contains annotations to the Experimental 
 		Factor Ontology.
 	</p>
@@ -53,7 +56,7 @@ order: 2
 		Experimental Factor Ontology: <a href="http://www.ebi.ac.uk/efo" target="_blank">http://www.ebi.ac.uk/efo</a>
 	</p>
 	<p>Now let's index this data. You can upload CSV files directly to Solr using curl:</p>
-	<blockquote>curl http://localhost:8983/solr/documents/update --data-binary @data/gwas-catalog-annotation-data.csv -H 'Content-type:application/csv'<br/>
+	<blockquote>curl http://localhost:8983/solr/documents/update --data-binary @../data/gwas-catalog-annotation-data.csv -H 'Content-type:application/csv'<br/>
 	curl http://localhost:8983/solr/documents/update --data '&lt;commit/&gt;' -H 'Content-type:text/xml; charset=utf-8'</blockquote>
 	<p>The first command here uploads the data, the second one commits the changes and makes your newly indexed documents visible.</p>
 	<p>Now, if you open the admin interface once more and look at the overview of the documents 
@@ -65,7 +68,7 @@ order: 2
 	
 	<h4 id="search_data">Use an example web application to search this data</h4>
 	<p>Next, we've supplied you with a simple web application to search our new Solr index. Let's try running this.</p>
-	<blockquote>cd ~/Projects/BioSolr/tools<br/>
+	<blockquote>cd ~/Projects/BioSolr/tutorial/tools<br/>
 	java -jar webapp-1.0-SNAPSHOT.jar server webapp.yml</blockquote>
 	<p>You should see a bunch of logging information as the web application starts up. If all goes well, you'll eventually see a message like this:</p>
 	<blockquote>INFO  [2015-12-06 18:50:49,002] org.eclipse.jetty.server.Server: Started @1637ms</blockquote>
@@ -86,12 +89,15 @@ order: 2
 	<h4 id="install_biosolr_plugins">Install BioSolr plugins to ontology-enrich your Solr index</h4>
 	<p>Now we're going to try and improve our search results using the structure of the ontology. To do this, we need to add the BioSolr ontology expansion plugin.</p>
 	<p>Before we start, let's shutdown our running Solr server</p>
-	<blockquote>cd ~/Projects/BioSolr/<br/>
+	<blockquote>cd ~/Projects/BioSolr/tutorial/solr/<br/>
 	solr_stop.sh</blockquote>
 	<p>Now, take the BioSolr plugin jar file out of the <i>plugins/</i> directory and copy it into our Solr setup.</p>
 	<blockquote>mkdir solr-conf/documents/lib<br/>
-	cp plugins/solr-ontology-update-processor-0.2.jar solr-conf/documents/lib/</blockquote>
-	<p>We've installed our plugin, but we need to do a bit of reconfiguration to make Solr use it.</p>
+	cp ../plugins/solr-ontology-update-processor-0.5.jar solr-conf/documents/lib/</blockquote>
+	<p>
+		The code for this plugin is under the `ontology/ontology-annotator` directory. <br/>
+		We've installed our plugin, but we need to do a bit of reconfiguration to make Solr use it.
+	</p>
 	
 	<h4 id="configure_biosolr">Configure BioSolr</h4>
 	<p>Now we need to modify our Solr configuration to make use of this plugin.</p>
@@ -133,13 +139,13 @@ order: 2
 	  	&lt;/requestHandler&gt;
 	</pre>
 	<p>Now we've reconfigured our server, we just have to restart...</p>
-	<blockquote>cd ~/Projects/BioSolr/<br/>
+	<blockquote>cd ~/Projects/BioSolr/tutorial/solr/<br/>
 	solr-start.sh
 	</blockquote>
 	
 	<h4 id="reindex_data">Reindex our data to take advantage of ontology enrichment</h4>
 	<p>This bit is simple - we can just rerun our indexing process from earlier...</p>
-	<blockquote>curl http://localhost:8983/solr/documents/update --data-binary @data/gwas-catalog-annotation-data.csv -H 'Content-type:application/csv'<br/>
+	<blockquote>curl http://localhost:8983/solr/documents/update --data-binary @../data/gwas-catalog-annotation-data.csv -H 'Content-type:application/csv'<br/>
 	curl http://localhost:8983/solr/documents/update --data '&lt;commit/&gt;' -H 'Content-type:text/xml; charset=utf-8'
 	</blockquote>
 	<p>You'll notice this takes a while longer than it did earlier - this is because this time, as we index our data we're calling out to OLS to expand our data using the ontology. Hopefully network access is up to it!</p>
@@ -151,7 +157,7 @@ order: 2
 	<h4 id="ontology_powered_search">Perform ontology-powered searches</h4>
 	<p>Now let's go back to our web application and see if we can take advantage of all this extra information.</p>
 	<p>Restart the application again:</p>
-	<blockquote>cd ~/Projects/BioSolr/tools<br/>
+	<blockquote>cd ~/Projects/BioSolr/tutorial/tools<br/>
 	java -jar webapp-1.0-SNAPSHOT.jar server webapp.yml
 	</blockquote>
 	<p>You'll straight away notice something new - lots of additional checkboxes (you might need to reload your page). These are present because our webapp has noticed that we have additional ontology fields in our data.</p>
