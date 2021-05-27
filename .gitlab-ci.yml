@@ -1,0 +1,33 @@
+
+stages:
+  - build
+  - deploy
+
+build:
+  image: ruby:2.7
+  stage: build
+  only:
+    - main
+  script:
+    - gem install bundler
+    - bundle install
+    - bundle exec jekyll build -d public
+  artifacts:
+    paths:
+      - public
+
+deploy:
+  image: ubuntu:18.04
+  stage: deploy
+  only:
+    - main
+  script:
+    - mkdir ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+    - echo "$SSH_PUBLIC_KEY" > ~/.ssh/id_rsa.pub
+    - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+    - chmod -R 600 ~/.ssh
+    - apt-get update && apt-get install -y rsync openssh-client
+    - rsync -arv public/ spo_adm01@noah-login:/nfs/public/release/spot-www/spot/
+    - ssh spo_adm01@hx-wp-login "/usr/local/snapsync/bin/snap-release spot-www"
+    
