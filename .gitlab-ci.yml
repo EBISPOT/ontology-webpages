@@ -28,6 +28,6 @@ deploy:
     - echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
     - chmod -R 600 ~/.ssh
     - apt-get update && apt-get install -y rsync openssh-client
-    - rsync -arv public/ spo_adm01@noah-login:/nfs/public/release/spot-www/spot/
+    - rsync -arv public/ spo_adm01@hx-wp-login:/nfs/public/release/spot-www/spot/
     - ssh spo_adm01@hx-wp-login "/usr/local/snapsync/bin/snap-release spot-www"
     
