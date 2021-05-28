@@ -11,7 +11,7 @@ build:
   script:
     - gem install bundler
     - bundle install
-    - bundle exec jekyll build -d public
+    - bundle exec jekyll build -d public --baseurl /spot
   artifacts:
     paths:
       - public
